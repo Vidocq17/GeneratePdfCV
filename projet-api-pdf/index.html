@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CV de {{nom}}</title>
+</head>
+<body>
+    <h1>CV de {{nom}}</h1>
+    <h2>Expérience Professionnelle</h2>
+    {{#each experiences}}
+    <div>
+        <h3>{{this.entreprise}}</h3>
+        <p>{{this.role}}</p>
+        <p>{{this.duree}}</p>
+        <p>{{this.description}}</p>
+    </div>
+    {{/each}}
+    <h2>Éducation</h2>
+    {{#each educations}}
+    <div>
+        <h3>{{this.institution}}</h3>
+        <p>{{this.diplome}}</p>
+        <p>{{this.annee}}</p>
+    </div>
+    {{/each}}
+    <h2>Compétences</h2>
+    <ul>
+        {{#each competences}}
+        <li>{{this}}</li>
+        {{/each}}
+    </ul>
+</body>
+</html>
+
+
+<script>
+    async function generateAndDownloadPDF() {
+        const response = await fetch('http://localhost:3000/generate-pdf', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                nom: "Votre Nom",
+                experiences: [... experiences],
+                educations: [... educations],
+                competences: [... competences]
+            })
+        });
+    
+        if (response.ok) {
+            const blob = await response.blob();
+            const downloadUrl = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = downloadUrl;
+            a.download = 'cv.pdf';
+            document.body.appendChild(a);
+            a.click();
+            a.remove();
+        } else {
+            console.error('Erreur lors de la génération du PDF');
+        }
+    }
+    </script>
