@@ -3,21 +3,33 @@ const puppeteer = require ('puppeteer')
 const Handlebars = require ('handlebars')
 const fs = require('fs');
 const path = require('path');
+const cors = require ('cors')
 const app = express()
 const port = 3000;
 
-const htmlPath = path.join(__dirname, 'index.html');
+app.use(express.json())
+// app.use(cors({
+//     origin: 'http://127.0.0.1:5500'
+//   }));
+
+// app.use(cors());
+
+app.use(cors({
+    origin: 'http://127.0.0.1:5500',
+    methods: ['GET', 'POST', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization']
+  }));
+
+const htmlPath = path.join(__dirname, 'template.html');
 const htmlTemplate = fs.readFileSync(htmlPath, 'utf8');
 
-app.use(express.json())
 
 app.post('/generate-pdf', async (req, res) => {
-    const { nom, experiences, educations, competences } = req.body;
-    console.log('generating')
+    console.log('Donnéeds reçues:', req.body)
 
     // Utilisation de Handlebars pour générer dynamiquement le HTML à partir du modèle et des données reçues
     const template = Handlebars.compile(htmlTemplate);
-    const htmlContent = template({ nom, experiences, educations, competences });
+    const htmlContent = template(req.body);
 
 
     console.log(htmlContent); // Afficher le contenu HTML généré dans la console
@@ -34,13 +46,13 @@ app.post('/generate-pdf', async (req, res) => {
         res.setHeader('Content-Disposition', 'attachment; filename=cv.pdf');
 
         res.send(pdfBuffer);
-    } catch(error) {
-        console.error('Error generating PDF:', error);
-        res.status(500).send('Error generating PDF');
+
+    } catch (error) {
+        console.error('Erreur lors de la génération du PDF:', error);
+        res.status(500).send('Erreur lors de la génération du PDF');
     }
 });
 
 app.listen(port, () => {
-    console.log(`Server listening at http://localhost:${port}`)
     console.log(`Server listening at http://localhost:${port}`)
 })
