@@ -2,12 +2,44 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CV</title>
+    <title>CV de {{nom}}</title>
 </head>
 <body>
-    <h1>CV de {{nom}}</h1>
-    <h1>Âge de {{age}}</h1>
-    <h1>Adresse de {{adresse}}</h1>
+    <h1>Informations Personnelles</h1>
+    
+    <div class="infoDiv">
+        <p><strong>Nom :</strong> {{nom}}</p>
+        <p><strong>Prénom :</strong> {{prenom}}</p>
+        <p><strong>Email :</strong> {{email}}</p>
+        <p><strong>Téléphone :</strong> {{telephone}}</p>
+    </div>
+    
+    <div class="infoDiv">
+        <h2>Profil</h2>
+        <p>{{profil}}</p>
+    </div>
 
+    <div class="infoDiv">
+        <h2>Expériences Professionnelles</h2>
+        {{#each experiences}}
+        <p>{{this}}</p>
+        {{/each}}
+    </div>
+
+    <div class="infoDiv">
+        <h2>Parcours professionnel</h2>
+        {{#each parcours_professionnel}}
+        <p>{{this}}</p>
+        {{/each}}
+    </div>
+
+    <div class="infoDiv">
+        <h2>Compétences</h2>
+        <ul>
+        {{#each competences}}
+            <li>{{this}}</li>
+        {{/each}}
+        </ul>
+    </div>
 </body>
 </html>

@@ -1,12 +1,15 @@
 document.getElementById('cvForm').addEventListener('submit', async function(e) {
     e.preventDefault();
 
-    const nom = document.getElementById('nom').value;
-    const age = document.getElementById('age').value;
-    const adresse = document.getElementById('adresse').value;
-
     const data = {
-        nom, age, adresse
+        nom: document.getElementById('nom').value,
+        prenom: document.getElementById('prenom').value,
+        email: document.getElementById('email').value,
+        telephone: document.getElementById('telephone').value,
+        profil: document.getElementById('profil').value,
+        experiences: document.getElementById('experiences').value.split(",").map(item => item.trim()), // Assurez-vous de traiter correctement les listes
+        parcours_professionnel: document.getElementById('parcours_professionnel').value.split(",").map(item => item.trim()),
+        competences: document.getElementById('competences').value.split(",").map(item => item.trim())
     };
 
     console.log(data)
