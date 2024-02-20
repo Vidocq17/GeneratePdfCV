@@ -15,6 +15,8 @@ app.use(cors({
     allowedHeaders: ['Content-Type', 'Authorization']
   }));
 
+  app.use(express.static('public'))
+
 const htmlPath = path.join(__dirname, 'template.html');
 const htmlTemplate = fs.readFileSync(htmlPath, 'utf8');
 
@@ -22,7 +24,6 @@ const htmlTemplate = fs.readFileSync(htmlPath, 'utf8');
 app.post('/generate-pdf', async (req, res) => {
     console.log('Donnéeds reçues:', req.body)
 
-    // Utilisation de Handlebars pour générer dynamiquement le HTML à partir du modèle et des données reçues
     const template = Handlebars.compile(htmlTemplate);
     const htmlContent = template(req.body);
 
