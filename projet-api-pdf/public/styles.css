@@ -3,7 +3,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: white;
+    background-color: #FFFEF7;
     color: black;
     height: 100vh;
 }
@@ -62,7 +62,11 @@ h2 {
     justify-content: center;
     margin-bottom: 20px;
     width: fit-content;
+    background-color: white;
 }
 .data input, .data textarea {
     width: 500px;
+}
+#cvForm {
+    margin-top: 80px;
 }
