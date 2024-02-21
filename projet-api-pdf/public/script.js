@@ -7,7 +7,7 @@ document.getElementById('cvForm').addEventListener('submit', async function(e) {
         email: document.getElementById('email').value,
         telephone: document.getElementById('telephone').value,
         profil: document.getElementById('profil').value,
-        experiences: document.getElementById('experiences').value.split(",").map(item => item.trim()), // Assurez-vous de traiter correctement les listes
+        experiences: document.getElementById('experiences').value.split(",").map(item => item.trim()),
         parcours_professionnel: document.getElementById('parcours_professionnel').value.split(",").map(item => item.trim()),
         competences: document.getElementById('competences').value.split(",").map(item => item.trim())
     };
